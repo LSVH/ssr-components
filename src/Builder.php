@@ -40,6 +40,7 @@ class Builder {
     public function renderScripts(): string {
         return '';
     }
+    
     protected static function createComponents(array $components): array {
         return array_filter(array_map(function ($component) {
             if (is_array($component)) {
