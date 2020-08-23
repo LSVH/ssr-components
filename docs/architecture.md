@@ -16,10 +16,9 @@ The key philosophy for achieving and maintaining the model is the use of recursi
 ![](./assets/main-class-diagram.svg)
 
 <details>
-<summary>View source of diagram</summary>
+<summary>Show source code of diagram...</summary>
 
 ```plantuml:main-class-diagram
-
 class Builder {
     # children: string[]|Component[]|Element[]
     + renderElements(): string
