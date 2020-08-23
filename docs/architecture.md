@@ -14,6 +14,7 @@ SSR Components is designed with the following model in mind:
 The key philosophy for achieving and maintaining the model is the use of recursion. Have a look at the following diagram to help understand how this might work:
 
 <div hidden>
+
 ```
 @startuml classDiagram
 
@@ -70,6 +71,7 @@ Property ..> Builder
 
 @enduml
 ```
+
 </div>
 
 ![](classDiagram.svg)
