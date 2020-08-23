@@ -2,12 +2,12 @@
 
 SSR Components is designed with the following model in mind:
 
-- Builder, takes care of rendering components, elements or strings.
-    - Component, the main entry point for developers. This part of the system contains an Element and may contain a Style and/or Script.
-        - Element, used for representing a DOM element.
-            - Property, converts the properties of an element to a renderable string.
-        - Style, used to customize the styling of the element with CSS.
-        - Script, used to customize the interactivity of the element via JavaScript.
+-   Builder, takes care of rendering components, elements or strings.
+    -   Component, the main entry point for developers. This part of the system contains an Element and may contain a Style and/or Script.
+        -   Element, used for representing a DOM element.
+            -   Property, converts the properties of an element to a renderable string.
+        -   Style, used to customize the styling of the element with CSS.
+        -   Script, used to customize the interactivity of the element via JavaScript.
 
 ## Class diagram
 
@@ -15,8 +15,7 @@ The key philosophy for achieving and maintaining the model is the use of recursi
 
 <div hidden>
 
-```
-@startuml classDiagram
+```plantuml:main-class-diagram
 
 class Builder {
     # children: string[]|Component[]|Element[]
@@ -74,4 +73,4 @@ Property ..> Builder
 
 </div>
 
-![](classDiagram.svg)
+![](./assets/main-class-div.svg)
