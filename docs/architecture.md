@@ -13,7 +13,10 @@ SSR Components is designed with the following model in mind:
 
 The key philosophy for achieving and maintaining the model is the use of recursion. Have a look at the following diagram to help understand how this might work:
 
-<div hidden>
+![](./assets/main-class-diagram.svg)
+
+<details>
+<summary>View source of diagram</summary>
 
 ```plantuml:main-class-diagram
 
@@ -71,6 +74,4 @@ Property ..> Builder
 @enduml
 ```
 
-</div>
-
-![](./assets/main-class-div.svg)
+</details>
