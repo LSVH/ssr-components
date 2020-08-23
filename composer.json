@@ -1,0 +1,30 @@
+{
+    "name": "lsvh/ssr-components",
+    "description": "SSR Components is an attempt to achieve something similar as styled components for JS.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luuk S. van Houdt",
+            "email": "info@lsvh.org"
+        }
+    ],
+    "scripts": {
+        "test": "vendor/bin/phpunit-watcher watch --configuration phpunit.xml tests/"
+    },
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^9",
+        "spatie/phpunit-watcher": "^1.22"
+    },
+    "autoload": {
+        "psr-4": {
+            "LSVH\\SSRComponents\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LSVH\\SSRComponents\\Tests\\": "tests/"
+        }
+    }
+}
