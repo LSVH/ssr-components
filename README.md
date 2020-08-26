@@ -13,15 +13,13 @@ Server Side Rendered Components for PHP.
 </p>
 
 <p align="center">
-    
-**[Read the documentation][github-docs]**
-·
-**[Submit an issue][github-new-issue]**
-·
-**[Start contributing](#contributing)**
-
+    <strong><a href="//github.com/lsvh/ssr-components/wiki">Read the documentation</a></strong>
+    ·
+    <strong><a href="//github.com/lsvh/ssr-components/issues/new">Submit an issue</a></strong>
+    ·
+    <strong><a href="#contributing">Start contributing</a></strong>
 </p>
-
+    
 ## Table of Contents
 
 -   [About](#about)
