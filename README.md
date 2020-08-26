@@ -84,18 +84,15 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Luuk van Houdt - [@lsvh_org](https://twitter.com/lsvh_org)
 
-<!-- links -->
+<!-- links & images -->
 
-github: //github.com/lsvh/ssr-components
-github-docs: //github.com/lsvh/ssr-components/wiki
-github-new-issue: //github.com/lsvh/ssr-components/issues/new
-packagist: //packagist.org/packages/lsvh/ssr-components
-react: //reactjs.org
-angular: //angular.io
-composer: //getcomposer.org
-
-<!-- images -->
-
+[github]: //github.com/lsvh/ssr-components
+[github-docs]: //github.com/lsvh/ssr-components/wiki
+[github-new-issue]: //github.com/lsvh/ssr-components/issues/new
+[packagist]: //packagist.org/packages/lsvh/ssr-components
+[react]: //reactjs.org
+[angular]: //angular.io
+[composer]: //getcomposer.org
 [badge-stable-version]: https://poser.pugx.org/lsvh/ssr-components/v
 [badge-unstable-version]: https://poser.pugx.org/lsvh/ssr-components/v/unstable
 [badge-downloads]: https://poser.pugx.org/lsvh/ssr-components/downloads
