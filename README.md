@@ -6,6 +6,7 @@
 ![Pipeline Build Status][badge-build-status]
 
 <!-- intro -->
+<br />
 <h3 align="center">SSR Components</h1>
 
 <p align="center">
