@@ -20,7 +20,8 @@ The key philosophy for achieving and maintaining the model is the use of recursi
 
 ```plantuml:main-class-diagram
 class Builder {
-    # children: string[]|Component[]|Element[]
+    # components: array
+    + __construct(array $components)
     + renderElements(): string
     + renderStyles(): string
     + renderScripts(): string
@@ -30,6 +31,7 @@ class Component {
     # element: Element
     # style: Style
     # script: script
+    + __construct(Element $element, Style $style = null, Script $script = null)
     + renderElement(): string
     + renderStyle(): string
     + renderScript(): string
@@ -38,28 +40,34 @@ class Component {
 class Element {
     # tag: string
     # props: Property[]
+    # children
+    + __construct(string $tag, array $props = [], $children = '')
     + toString(): string
+    + getPropertyByName(string $name): null|Property
+    + getChildren()
 }
 
 class Property {
     # name: string
     # value: string
+    + __construct(string $name, string $value = null)
     + toString(): string
-    + getChildren(): Builder
+    + getName(): string
+    + getValue(): string
 }
 
 class Style {
     # template: string
     # element: Element
+    + __construct(Element $element, string $template = null)
     + toString(): string
-    # elementChildrenStylesToString(): string
 }
 
 class Script {
     # template: string
     # element: Element
+    + __construct(Element $element, string $template = null)
     + toString(): string
-    # elementChildrenScriptsToString(): string
 }
 
 Builder ..> Component
@@ -68,9 +76,11 @@ Component ..> Element
 Component ..> Style
 Component ..> Script
 Element ..> Property
-Property ..> Builder
+Element ..> Builder
 
 @enduml
 ```
 
 </details>
+
+As you can see the Element class depends on the Builder class, this is because when the Element has children in the shape of a Builder then it renders the children via the Builder.
