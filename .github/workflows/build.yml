@@ -29,3 +29,5 @@ jobs:
               uses: php-actions/composer@master
               with:
                   command: test
+                  suggest: yes
+                  progress: yes
