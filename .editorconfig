@@ -3,10 +3,16 @@ root = true
 [*]
 charset = utf-8
 end_of_line = lf
-insert_final_newline = true
 indent_style = space
 indent_size = 4
+insert_final_newline = true
 trim_trailing_whitespace = true
+
+quote_type = double
+max_line_length = 100
+curly_bracket_next_line = false
+spaces_around_operators = true
+spaces_around_brackets = none
 
 [*.md]
 trim_trailing_whitespace = false

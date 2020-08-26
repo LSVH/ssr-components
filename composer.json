@@ -10,7 +10,8 @@
         }
     ],
     "scripts": {
-        "test": "vendor/bin/phpunit-watcher watch --configuration phpunit.xml tests/"
+        "test": "vendor/bin/phpunit --configuration phpunit.xml",
+        "test:watch": "vendor/bin/phpunit-watcher watch --configuration phpunit.xml"
     },
     "require": {},
     "require-dev": {

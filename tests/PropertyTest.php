@@ -6,23 +6,26 @@ use LSVH\SSRComponents\Property;
 
 class PropertyTest extends TestCase {
     /** @test */
-    public function to_string() {
-        $actual = Property::createInstance([
-            'name' => 'hello',
-            'value' => 'world'
-        ]);
+    public function can_convert_to_string_with_valid_attribute() {
+        $actual = new Property('class', 'foo');
 
-        $expected = 'hello="world"';
+        $expected = 'class="foo"';
 
         $this->assertEquals($expected, $actual->toString());
     }
 
     /** @test */
-    public function event_attribute_to_string() {
-        $actual = Property::createInstance([
-            'name' => 'onclick',
-            'value' => 'foo()'
-        ]);
+    public function can_convert_to_string_with_valid_attribute_but_without_value() {
+        $actual = new Property('class');
+
+        $expected = 'class';
+
+        $this->assertEquals($expected, $actual->toString());
+    }
+
+    /** @test */
+    public function cannot_convert_to_string_with_invalid_attribute() {
+        $actual = new Property('foo');
 
         $expected = '';
 
@@ -30,11 +33,17 @@ class PropertyTest extends TestCase {
     }
 
     /** @test */
-    public function reserverd_prop_name_to_string() {
-        $actual = Property::createInstance([
-            'name' => 'children',
-            'value' => 'hello world'
-        ]);
+    public function cannot_convert_to_string_when_valid_event_attribute() {
+        $actual = new Property('onclick');
+
+        $expected = '';
+
+        $this->assertEquals($expected, $actual->toString());
+    }
+
+    /** @test */
+    public function cannot_convert_to_string_without_name() {
+        $actual = new Property('', 'foo');
 
         $expected = '';
 
@@ -43,35 +52,19 @@ class PropertyTest extends TestCase {
 
     /** @test */
     public function can_get_name() {
-        $expected = 'hello';
+        $expected = 'foo';
 
-        $actual = Property::createInstance([
-            'name' => $expected,
-            'value' => 'world'
-        ]);
+        $actual = new Property($expected);
 
         $this->assertEquals($expected, $actual->getName());
     }
 
-    /**
-     * @test
-     * @dataProvider getValueProvider
-     */
-    public function can_get_value($expected) {
-        $actual = Property::createInstance([
-            'name' => 'hello',
-            'value' => $expected
-        ]);
+    /** @test */
+    public function can_get_value() {
+        $expected = 'foo';
+
+        $actual = new Property('', $expected);
 
         $this->assertEquals($expected, $actual->getValue());
-    }
-
-    public function getValueProvider(): array {
-        return [
-            'with_string' => ['world'],
-            'with_integer' => [123],
-            'with_boolean' => [true],
-            'with_function' => [function() { }],
-        ];
     }
 }

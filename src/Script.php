@@ -2,20 +2,34 @@
 
 namespace LSVH\SSRComponents;
 
-class Script {
+use LSVH\SSRComponents\Contracts\Script as ScriptInterface;
+use LSVH\SSRComponents\Contracts\Element as ElementInterface;
+use LSVH\SSRComponents\Contracts\Builder as BuilderInterface;
+
+class Script implements ScriptInterface {
     protected $element;
-    protected $script;
+    protected $template;
 
-    public static function createInstance(Element $element, string $script): self {
-        return new static($element, $script);
-    }
-
-    protected function __construct(Element $element, string $script) {
+    public function __construct(ElementInterface $element, string $template = null) {
         $this->element = $element;
-        $this->script = $script;
+        $this->template = $template;
     }
 
     public function toString(): string {
-        return $this->script;
+        $children = $this->elementChildrenScriptsToString();
+        if (strpos($children, $this->template) !== false) {
+            return $this->template . $children;
+        }
+
+        return $children;
+    }
+
+    protected function elementChildrenScriptsToString(): string {
+        $children = $this->element->getChildren();
+        if ($children instanceof BuilderInterface) {
+            return $children->renderScripts();
+        }
+
+        return '';
     }
 }

@@ -2,39 +2,34 @@
 
 namespace LSVH\SSRComponents;
 
-class Style {
+use LSVH\SSRComponents\Contracts\Style as StyleInterface;
+use LSVH\SSRComponents\Contracts\Element as ElementInterface;
+use LSVH\SSRComponents\Contracts\Builder as BuilderInterface;
+
+class Style implements StyleInterface {
     protected $element;
-    protected $style;
+    protected $template;
 
-    public static function createInstance(Element $element, string $style): self {
-        return new static($element, $style);
-    }
-
-    protected function __construct(Element $element, string $style) {
+    public function __construct(ElementInterface $element, string $template = null) {
         $this->element = $element;
-        $this->style = $style;
+        $this->template = $template;
     }
 
     public function toString(): string {
-        return $this->style . static::childrenStylesToString($this->element);
-    }
-
-    public static function childrenStylesToString(Element $element) {
-        if (!$element->hasChildren() || is_string($children = $element->getChildren())) {
-            return '';
+        $children = $this->elementChildrenStylesToString();
+        if (!empty($this->template) && strpos($children, $this->template) === false) {
+            return $this->template . $children;
         }
 
-        return implode('', array_filter(array_map(function ($child) {
-            if ($child instanceof Component) {
-                $style = $child->renderStyle();
-                return $style . static::childrenStylesToString($child->getElement());
-            }
+        return $children;
+    }
 
-            if ($child instanceof Element) {
-                return static::childrenStylesToString($child);
-            }
+    protected function elementChildrenStylesToString(): string {
+        $children = $this->element->getChildren();
+        if ($children instanceof BuilderInterface) {
+            return $children->renderStyles();
+        }
 
-            return '';
-        }, $children)));
+        return '';
     }
 }

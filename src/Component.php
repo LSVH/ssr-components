@@ -2,23 +2,21 @@
 
 namespace LSVH\SSRComponents;
 
-class Component {
+use LSVH\SSRComponents\Contracts\Component as ComponentInterface;
+use LSVH\SSRComponents\Contracts\Element as ElementInterface;
+use LSVH\SSRComponents\Contracts\Style as StyleInterface;
+use LSVH\SSRComponents\Contracts\Script as ScriptInterface;
+
+class Component implements ComponentInterface {
     protected $element;
     protected $style;
     protected $script;
 
-    public static function createInstance(array $rawElement, $style = null, $script = null): self {
-        $element = Element::createInstance($rawElement);
-        $props = array_filter([
-            $element,
-            $style ? Style::createInstance($element, $style) : false,
-            $script ? Script::createInstance($element, $script) : false
-        ]);
-
-        return new static(...$props);
-    }
-
-    protected function __construct(Element $element, Style $style = null, Script $script = null) {
+    public function __construct(
+        ElementInterface $element,
+        StyleInterface $style = null,
+        ScriptInterface $script = null
+    ) {
         $this->element = $element;
         $this->style = $style;
         $this->script = $script;
@@ -34,9 +32,5 @@ class Component {
 
     public function renderScript(): string {
         return $this->script ? $this->script->toString() : '';
-    }
-
-    public function getElement(): Element {
-        return $this->element;
     }
 }

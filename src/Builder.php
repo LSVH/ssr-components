@@ -2,60 +2,95 @@
 
 namespace LSVH\SSRComponents;
 
-class Builder {
+use LSVH\SSRComponents\Contracts\Builder as BuilderInterface;
+use LSVH\SSRComponents\Contracts\Component as ComponentInterface;
+use LSVH\SSRComponents\Contracts\Element as ElementInterface;
+use LSVH\SSRComponents\Factories\Component as ComponentFactory;
+use LSVH\SSRComponents\Factories\Element as ElementFactory;
+
+class Builder implements BuilderInterface {
     protected $components;
 
     public function __construct(array $components) {
-        $this->components = static::createComponents($components);
+        $this->components = static::buildComponents($components);
     }
 
     public function renderElements(): string {
-        return implode('', array_map(function ($component) {
-            if ($component instanceof Component) {
-                return $component->renderElement();
-            }
+        $handleComponents = function ($component) {
+            return $component->renderElement();
+        };
+        $handleElements = function ($element) {
+            return $element->toString();
+        };
 
-            if ($component instanceof Element) {
-                return $component->toString();
-            }
-
-            return $component;
-        }, $this->components));
+        return $this->renderComponents($handleComponents, $handleElements);
     }
 
     public function renderStyles(): string {
-        return implode('', array_map(function ($component) {
-            if ($component instanceof Component) {
-                return $component->renderStyles();
-            }
+        $handleComponents = function ($component) {
+            return $component->renderStyle();
+        };
+        $handleElements = function ($element) {
+            return $element->getChildren()->renderStyle();
+        };
 
-            if ($component instanceof Element) {
-                return Style::childrenStylesToString($component);
-            }
-
-            return '';
-        }, $this->components));
+        return $this->renderComponents($handleComponents, $handleElements, '');
     }
 
     public function renderScripts(): string {
-        return '';
-    }
-    
-    protected static function createComponents(array $components): array {
-        return array_filter(array_map(function ($component) {
-            if (is_array($component)) {
-                $element = array_key_exists('element', $component) ? $component['element'] : [];
-                $style = array_key_exists('style', $component) ? $component['style'] : null;
-                $script = array_key_exists('script', $component) ? $component['script'] : null;
+        $handleComponents = function ($component) {
+            return $component->renderScript();
+        };
+        $handleElements = function ($element) {
+            return $element->getChildren()->renderScript();
+        };
 
-                if (empty(array_filter([$element, $style, $script]))) {
-                    return Element::createInstance($component);
+        return $this->renderComponents($handleComponents, $handleElements, '');
+    }
+
+    protected function renderComponents(
+        callable $handleComponents,
+        callable $handleElements,
+        $defaultHandler = null
+    ): string {
+        return implode(
+            '',
+            array_map(function ($component) use (
+                $handleComponents,
+                $handleElements,
+                $defaultHandler
+            ) {
+                if ($component instanceof ComponentInterface) {
+                    return $handleComponents($component);
                 }
 
-                return Component::createInstance($element, $style, $script);
-            }
+                if ($component instanceof ElementInterface) {
+                    return $handleElements($component);
+                }
 
-            return $component;
-        }, $components));
+                return is_callable($defaultHandler)
+                    ? $defaultHandler($component)
+                    : ($defaultHandler == null
+                        ? $component
+                        : $defaultHandler);
+            },
+            $this->components),
+        );
+    }
+
+    protected static function buildComponents(array $components): array {
+        return array_filter(
+            array_map(function ($component) {
+                if (is_array($component)) {
+                    if (array_key_exists('element', $component)) {
+                        return ComponentFactory::createInstance($component);
+                    }
+
+                    return ElementFactory::createInstance($component);
+                }
+
+                return $component;
+            }, $components),
+        );
     }
 }
