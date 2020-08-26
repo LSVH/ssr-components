@@ -6,19 +6,21 @@
 ![Pipeline Build Status][badge-build-status]
 
 <!-- intro -->
-<center>
+<h3 align="center">SSR Components</h1>
 
-# [SSR Components][github]
-
+<p align="center">
 Server Side Rendered Components for PHP.
+</p>
 
+<p align="center">
+    
 **[Read the documentation][github-docs]**
 ·
-**[Submit an issue][github-issue-new]**
+**[Submit an issue][github-new-issue]**
 ·
 **[Start contributing](#contributing)**
 
-</center>
+</p>
 
 ## Table of Contents
 
@@ -30,7 +32,6 @@ Server Side Rendered Components for PHP.
 -   [Contributing](#contributing)
 -   [License](#license)
 -   [Contact](#contact)
--   [Acknowledgements](#acknowledgements)
 
 ## About
 
