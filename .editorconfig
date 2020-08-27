@@ -17,5 +17,5 @@ spaces_around_brackets = none
 [*.md]
 trim_trailing_whitespace = false
 
-[*.{yml,yaml}]
+[*.{yml,yaml,json}]
 indent_size = 2

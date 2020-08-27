@@ -8,5 +8,14 @@
 
   "phpVersion": "7.3",
   "trailingCommaPHP": true,
-  "braceStyle": "1tbs"
+  "braceStyle": "1tbs",
+
+  "overrides": [
+    {
+      "files": ["*.yml", "*.yaml", "*.json"],
+      "options": {
+        "tabWidth": 2
+      }
+    }
+  ]
 }
