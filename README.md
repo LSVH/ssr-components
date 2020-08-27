@@ -3,7 +3,7 @@
 [![Latest Stable Version][badge-stable-version]][packagist]
 [![Latest Unstable Version][badge-unstable-version]][packagist]
 [![Total Downloads][badge-downloads]][packagist]
-![Pipeline Build Status][badge-build-status]
+![Pipeline Build Status][badge-test-status]
 
 <!-- intro -->
 <br />
