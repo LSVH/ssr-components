@@ -3,6 +3,38 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
+    tags:
+      - 'v*'
+jobs:
+  release:
+    name: build and release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        uses: php-actions/composer@master
+        with:
+          dev: no
+      - name: Package build artifacts
+        run: |
+          zip --junk-paths ssr-components src/ vendor/ composer.json README.md LICENSE
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./ssr-components.zip
+          asset_name: ssr-components.zip
+          asset_content_type: application/zip
