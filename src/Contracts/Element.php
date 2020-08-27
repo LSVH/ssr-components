@@ -10,4 +10,8 @@ interface Element {
     public function getPropertyByName(string $name): ?Property;
 
     public function getChildren();
+
+    public function getComponentId(): ?string;
+
+    public function setComponentId(string $value): void;
 }

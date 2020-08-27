@@ -124,4 +124,24 @@ class ElementTest extends TestCase {
 
         $this->assertEquals($expected, $actual);
     }
+
+    /** @test */
+    public function can_get_component_id() {
+        $subject = new Element('');
+
+        $expected = null;
+        $actual = $subject->getComponentId();
+        $this->assertEquals($expected, $actual);
+    }
+
+    /** @test */
+    public function can_set_and_get_component_id() {
+        $subject = new Element('');
+
+        $expected = 'foo';
+        $subject->setComponentId($expected);
+
+        $actual = $subject->getComponentId();
+        $this->assertEquals($expected, $actual);
+    }
 }

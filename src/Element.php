@@ -12,6 +12,7 @@ class Element implements ElementInterface {
     protected $tag;
     protected $props;
     protected $children;
+    protected $componentId;
 
     public function __construct(string $tag, array $props = [], $children = '') {
         $this->tag = empty($tag) ? 'div' : $tag;
@@ -44,6 +45,14 @@ class Element implements ElementInterface {
                 : $this->children;
 
         return "<{$this->tag}{$this->renderProps()}>{$children}</{$this->tag}>";
+    }
+
+    public function getComponentId(): ?string {
+        return $this->componentId;
+    }
+
+    public function setComponentId(string $value): void {
+        $this->componentId = $value;
     }
 
     protected function isSelfClosingTag(): bool {
