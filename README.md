@@ -96,4 +96,4 @@ Luuk van Houdt - [@lsvh_org](https://twitter.com/lsvh_org)
 [badge-stable-version]: https://poser.pugx.org/lsvh/ssr-components/v
 [badge-unstable-version]: https://poser.pugx.org/lsvh/ssr-components/v/unstable
 [badge-downloads]: https://poser.pugx.org/lsvh/ssr-components/downloads
-[badge-build-status]: https://img.shields.io/github/workflow/status/lsvh/ssr-components/build
+[badge-test-status]: https://img.shields.io/github/workflow/status/lsvh/ssr-components/tests

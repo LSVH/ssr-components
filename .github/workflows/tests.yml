@@ -1,11 +1,11 @@
-name: build
+name: tests
 on: [push]
 jobs:
   test:
-    name: checkout and test
+    name: build and run unit test
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v2
       - name: Get Composer Cache Directory
         id: composer-cache
