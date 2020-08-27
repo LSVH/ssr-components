@@ -106,11 +106,45 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_get_property_by_name() {
-        $subject = new Element('input', [['concrete' => get_class($this->property)]]);
+    public function can_get_property() {
+        $subject = new Element('', [['concrete' => get_class($this->property)]]);
 
-        $expected = $this->property;
-        $actual = $subject->getPropertyByName($expected->getName());
+        $expected = $this->property->getValue();
+        $actual = $subject->getPropertyValue($this->property->getName());
+        $this->assertEquals($expected, $actual);
+    }
+
+    /** @test */
+    public function can_set_value_for_existing_property() {
+        $this->property->setMock('getName', 'class');
+        $this->property->setMock('getValue', 'foo');
+        $subject = new Element('', [$this->property]);
+
+        $expected = 'bar';
+        $subject->setPropertyValue($this->property->getName(), $expected);
+
+        $actual = $this->property->getLogs('setValue')[0][0];
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /** @test */
+    public function can_set_value_for_non_existing_property() {
+        $subject = new Element('');
+        $subject->setPropertyValue('class', 'foo');
+
+        $expected = '<div class="foo"></div>';
+        $actual = $subject->toString();
+        $this->assertEquals($expected, $actual);
+    }
+
+    /** @test */
+    public function can_set_value_for_non_existing_property_with_custom_concrete() {
+        $subject = new Element('');
+        $subject->setPropertyValue('class', ['concrete' => get_class($this->property)]);
+
+        $expected = "<div {$this->property->toString()}></div>";
+        $actual = $subject->toString();
         $this->assertEquals($expected, $actual);
     }
 
@@ -142,6 +176,30 @@ class ElementTest extends TestCase {
         $subject->setComponentId($expected);
 
         $actual = $subject->getComponentId();
+        $this->assertEquals($expected, $actual);
+    }
+
+    /** @test */
+    public function can_inject_component_id_in_class_attribute() {
+        $subject = new Element('');
+
+        $expected = 'foo';
+        $subject->setComponentId($expected);
+
+        $expected = "<div class=\"{$expected}\"></div>";
+        $actual = $subject->toString();
+        $this->assertEquals($expected, $actual);
+    }
+
+    /** @test */
+    public function can_merge_component_id_with_existing_class_attribute_value() {
+        $this->property->setMock('getName', 'class');
+        $this->property->setMock('getValue', 'foo');
+        $subject = new Element('', [$this->property]);
+        $subject->setComponentId('bar');
+
+        $expected = 'foo bar';
+        $actual = $this->property->getLogs('setValue')[0][0];
         $this->assertEquals($expected, $actual);
     }
 }

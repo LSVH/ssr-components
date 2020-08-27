@@ -6,7 +6,7 @@ abstract class Factory {
     private function __construct() {
     }
 
-    abstract public static function createInstance(array $config);
+    abstract public static function createInstance($config);
 
     public static function createInstances(array $configs): array {
         return array_filter(

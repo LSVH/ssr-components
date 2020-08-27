@@ -7,7 +7,9 @@ interface Element {
 
     public function toString(): string;
 
-    public function getPropertyByName(string $name): ?Property;
+    public function getPropertyValue(string $name): ?string;
+
+    public function setPropertyValue(string $name, $value = null): void;
 
     public function getChildren();
 

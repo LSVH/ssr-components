@@ -9,35 +9,30 @@ class ElementStub extends Stub implements Element {
     protected $children;
 
     public function __construct(string $tag, array $props = [], $children = '') {
-        $this->log('__construct', [$tag, $props, $children]);
-        $this->children = $children;
+        $this->stub('__construct', null, [$tag, $props, $children]);
     }
 
     public function toString(): string {
-        $this->log('toString');
-        return 'ElementStub::toString';
-    }
-
-    public function getPropertyByName(string $name): ?Property {
-        $this->log('getPropertyByName', [$name]);
-        return new PropertyStub($name, null);
+        return $this->stub('toString', 'ElementStub::toString');
     }
 
     public function getChildren() {
-        $this->log('getChildren');
-        if (is_array($this->children)) {
-            return new BuilderStub($this->children);
-        }
+        return $this->stub('getChildren', 'ElementStub::getChildren');
+    }
 
-        return 'ElementStub::getChildren';
+    public function getPropertyValue(string $name): ?string {
+        return $this->stub('getPropertyByName', new PropertyStub($name), [$name]);
+    }
+    
+    public function setPropertyValue(string $name, $value = null): void {
+        $this->stub('setPropertyByName', null, [$name, $value]);
     }
 
     public function getComponentId(): ?string {
-        $this->log('getComponentId');
-        return 'ElementStub::getComponentId';
+        return $this->stub('getComponentId', 'ElementStub::getComponentId');
     }
 
     public function setComponentId(string $value): void {
-        $this->log('setComponentId');
+        $this->stub('setComponentId', null, [$value]);
     }
 }

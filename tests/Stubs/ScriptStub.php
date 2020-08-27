@@ -7,11 +7,10 @@ use LSVH\SSRComponents\Contracts\Element;
 
 class ScriptStub extends Stub implements Script {
     public function __construct(Element $element, string $template = null) {
-        $this->log('__construct', [$element, $template]);
+        $this->stub('__construct', null, [$element, $template]);
     }
 
     public function toString(): string {
-        $this->log('toString');
-        return 'ScriptStub::toString';
+        return $this->stub('toString', 'ScriptStub::toString');
     }
 }

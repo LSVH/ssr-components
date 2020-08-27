@@ -7,11 +7,10 @@ use LSVH\SSRComponents\Contracts\Element;
 
 class StyleStub extends Stub implements Style {
     public function __construct(Element $element, string $template = null) {
-        $this->log('__construct', [$element, $template]);
+        $this->stub('__construct', null, [$element, $template]);
     }
 
     public function toString(): string {
-        $this->log('toString');
-        return 'StyleStub::toString';
+        return $this->stub('toString', 'StyleStub::toString');
     }
 }
