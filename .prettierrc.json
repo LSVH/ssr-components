@@ -8,7 +8,7 @@
 
   "phpVersion": "7.3",
   "trailingCommaPHP": true,
-  "braceStyle": "1tbs",
+  "braceStyle": "psr-2",
 
   "overrides": [
     {

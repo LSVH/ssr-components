@@ -6,21 +6,18 @@ use LSVH\SSRComponents\Contracts\Builder;
 
 class BuilderStub extends Stub implements Builder {
     public function __construct(array $components) {
-        $this->log('__construct', [$components]);
+        $this->stub('__construct', null, [$components]);
     }
 
     public function renderElements(): string {
-        $this->log('renderElements');
-        return 'BuilderStub::renderElements';
+        return $this->stub('renderElements', 'BuilderStub::renderElements');
     }
 
     public function renderStyles(): string {
-        $this->log('renderStyles');
-        return 'BuilderStub::renderStyles';
+        return $this->stub('renderStyles', 'BuilderStub::renderStyles');
     }
 
     public function renderScripts(): string {
-        $this->log('renderScripts');
-        return 'BuilderStub::renderScripts';
+        return $this->stub('renderScripts', 'BuilderStub::renderScripts');
     }
 }

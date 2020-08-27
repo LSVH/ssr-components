@@ -34,6 +34,10 @@ class Property implements PropertyInterface {
         return $this->value;
     }
 
+    public function setValue(string $value = null): void {
+        $this->value = $value;
+    }
+
     protected function isEventAttribute(): bool {
         $html5 = [
             'onafterprint',

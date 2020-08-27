@@ -22,12 +22,30 @@ class Element implements ElementInterface {
             : $children;
     }
 
-    public function getPropertyByName(string $name): ?PropertyInterface {
+    public function getPropertyValue(string $name): ?string {
         $props = array_filter($this->props, function ($prop) use ($name) {
             return $prop->getName() === $name;
         });
 
-        return empty($props) ? null : current($props);
+        return empty($props) ? null : current($props)->getValue();
+    }
+
+    public function setPropertyValue(string $name, $value = null): void
+    {
+        $succeeded = false;
+        $this->props = array_map(function (PropertyInterface $prop) use ($name, $value, &$succeeded) {
+            if ($prop->getName() === $name) {
+                $succeeded = true;
+                $prop->setValue($value);
+            }
+
+            return $prop;
+        }, $this->props);
+
+        if (!$succeeded) {
+            $config = array_merge(['name' => $name], is_array($value) ? $value : ['value' => $value]);
+            $this->props[] = PropertyFactory::createInstance($config);
+        }
     }
 
     public function getChildren() {
@@ -53,6 +71,15 @@ class Element implements ElementInterface {
 
     public function setComponentId(string $value): void {
         $this->componentId = $value;
+        $this->mergeWithClassProperty($value);
+    }
+
+    public function mergeWithClassProperty(string $value): void {
+        $classes = $this->getPropertyValue('class');
+        $classes = empty($classes) ? [] : preg_split('/\s+/', $classes);
+        $classes[] = $value;
+
+        $this->setPropertyValue('class', implode(' ', array_unique($classes)));
     }
 
     protected function isSelfClosingTag(): bool {

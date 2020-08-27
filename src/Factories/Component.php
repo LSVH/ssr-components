@@ -7,7 +7,11 @@ use LSVH\SSRComponents\Contracts\Component as ComponentInterface;
 use LSVH\SSRComponents\Contracts\Element as ElementInterface;
 
 class Component extends Factory {
-    public static function createInstance(array $config): ComponentInterface {
+    public static function createInstance($config): ComponentInterface {
+        if ($config instanceof ComponentInterface) {
+            return $config;
+        }
+
         $element = Element::createInstance(static::getConfigAttribute($config, 'element', []));
 
         $style = static::getConfigAttribute($config, 'style');

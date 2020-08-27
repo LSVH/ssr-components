@@ -10,4 +10,6 @@ interface Property {
     public function getName(): string;
 
     public function getValue(): string;
+
+    public function setValue(string $value = null): void;
 }

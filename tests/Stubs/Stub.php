@@ -3,20 +3,36 @@
 namespace LSVH\SSRComponents\Tests\Stubs;
 
 abstract class Stub {
-    private $history = [];
+    private $logs = [];
+    private $mocks = [];
 
-    protected function log(string $methodName, array $args = []): void {
-        $logs = $this->getLogs($methodName);
-        $logs[] = $args;
-
-        $this->history[$methodName] = $logs;
-    }
 
     public function getLogs(string $methodName): array {
-        if (array_key_exists($methodName, $this->history)) {
-            return $this->history[$methodName];
+        if (array_key_exists($methodName, $this->logs)) {
+            return $this->logs[$methodName];
         }
 
         return [];
+    }
+
+    public function setMock(string $methodName, $return): void {
+        $this->mocks[$methodName] = $return;
+    }
+
+    protected function getMock(string $methodName, $fallback = null) {
+        if (array_key_exists($methodName, $this->mocks)) {
+            return $this->mocks[$methodName];
+        }
+
+        return $fallback;
+    }
+
+    protected function stub(string $methodName, $defaultReturn = null, array $args = []) {
+        $logs = $this->getLogs($methodName);
+        $logs[] = $args;
+
+        $this->logs[$methodName] = $logs;
+
+        return $this->getMock($methodName, $defaultReturn);
     }
 }
