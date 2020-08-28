@@ -20,8 +20,8 @@ class Style implements StyleInterface
     public function toString(): string
     {
         $children = $this->elementChildrenStylesToString();
-        if (!empty($this->template) && strpos($children, $this->template) === false) {
-            return $this->template.$children;
+        if (!empty($this->template)) {
+            return $this->renderTemplate().$children;
         }
 
         return $children;
@@ -35,5 +35,12 @@ class Style implements StyleInterface
         }
 
         return '';
+    }
+
+    protected function renderTemplate(): string
+    {
+        $id = '.'.$this->element->getComponentId();
+
+        return str_replace('&', $id, $this->template);
     }
 }

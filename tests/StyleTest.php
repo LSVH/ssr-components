@@ -36,4 +36,13 @@ class StyleTest extends TestCase
         $expected = $expected.'BuilderStub::renderStyles';
         $this->assertEquals($expected, $actual);
     }
+
+    /** @test */
+    public function can_replace_ampersand_with_component_id_as_class_selector()
+    {
+        $subject = new Style($this->element, '& { color: red; }');
+        $expected = ".{$this->element->getComponentId()} { color: red; }";
+        $actual = $subject->toString();
+        $this->assertEquals($expected, $actual);
+    }
 }
