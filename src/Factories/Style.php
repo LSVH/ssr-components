@@ -2,11 +2,13 @@
 
 namespace LSVH\SSRComponents\Factories;
 
-use LSVH\SSRComponents\Style as StyleConcrete;
 use LSVH\SSRComponents\Contracts\Style as StyleInterface;
+use LSVH\SSRComponents\Style as StyleConcrete;
 
-class Style extends Factory {
-    public static function createInstance($config): StyleInterface {
+class Style extends Factory
+{
+    public static function createInstance($config): StyleInterface
+    {
         if ($config instanceof StyleInterface) {
             return $config;
         }

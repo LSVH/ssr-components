@@ -2,7 +2,8 @@
 
 namespace LSVH\SSRComponents\Contracts;
 
-interface Element {
+interface Element
+{
     public function __construct(string $tag, array $props = [], $children = '');
 
     public function toString(): string;

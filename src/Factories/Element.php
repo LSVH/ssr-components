@@ -2,11 +2,13 @@
 
 namespace LSVH\SSRComponents\Factories;
 
-use LSVH\SSRComponents\Element as ElementConcrete;
 use LSVH\SSRComponents\Contracts\Element as ElementInterface;
+use LSVH\SSRComponents\Element as ElementConcrete;
 
-class Element extends Factory {
-    public static function createInstance($config): ElementInterface {
+class Element extends Factory
+{
+    public static function createInstance($config): ElementInterface
+    {
         if ($config instanceof ElementInterface) {
             return $config;
         }
