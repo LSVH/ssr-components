@@ -2,12 +2,13 @@
 
 namespace LSVH\SSRComponents\Tests\Stubs;
 
-abstract class Stub {
+abstract class Stub
+{
     private $logs = [];
     private $mocks = [];
 
-
-    public function getLogs(string $methodName): array {
+    public function getLogs(string $methodName): array
+    {
         if (array_key_exists($methodName, $this->logs)) {
             return $this->logs[$methodName];
         }
@@ -15,11 +16,13 @@ abstract class Stub {
         return [];
     }
 
-    public function setMock(string $methodName, $return): void {
+    public function setMock(string $methodName, $return): void
+    {
         $this->mocks[$methodName] = $return;
     }
 
-    protected function getMock(string $methodName, $fallback = null) {
+    protected function getMock(string $methodName, $fallback = null)
+    {
         if (array_key_exists($methodName, $this->mocks)) {
             return $this->mocks[$methodName];
         }
@@ -27,7 +30,8 @@ abstract class Stub {
         return $fallback;
     }
 
-    protected function stub(string $methodName, $defaultReturn = null, array $args = []) {
+    protected function stub(string $methodName, $defaultReturn = null, array $args = [])
+    {
         $logs = $this->getLogs($methodName);
         $logs[] = $args;
 
