@@ -2,7 +2,8 @@
 
 namespace LSVH\SSRComponents\Contracts;
 
-interface Script {
+interface Script
+{
     public function __construct(Element $element, string $template = null);
 
     public function toString(): string;
