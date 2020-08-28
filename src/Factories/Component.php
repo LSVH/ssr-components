@@ -6,8 +6,10 @@ use LSVH\SSRComponents\Component as ComponentConcrete;
 use LSVH\SSRComponents\Contracts\Component as ComponentInterface;
 use LSVH\SSRComponents\Contracts\Element as ElementInterface;
 
-class Component extends Factory {
-    public static function createInstance($config): ComponentInterface {
+class Component extends Factory
+{
+    public static function createInstance($config): ComponentInterface
+    {
         if ($config instanceof ComponentInterface) {
             return $config;
         }
@@ -33,9 +35,10 @@ class Component extends Factory {
         return new $concrete($element, $style, $script);
     }
 
-    protected static function addElementToConfig(ElementInterface $element, $template): array {
+    protected static function addElementToConfig(ElementInterface $element, $template): array
+    {
         return [
-            'element' => $element,
+            'element'  => $element,
             'template' => $template,
         ];
     }

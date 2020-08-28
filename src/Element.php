@@ -2,19 +2,21 @@
 
 namespace LSVH\SSRComponents;
 
+use LSVH\SSRComponents\Contracts\Builder as BuilderInterface;
 use LSVH\SSRComponents\Contracts\Element as ElementInterface;
 use LSVH\SSRComponents\Contracts\Property as PropertyInterface;
-use LSVH\SSRComponents\Contracts\Builder as BuilderInterface;
-use LSVH\SSRComponents\Factories\Property as PropertyFactory;
 use LSVH\SSRComponents\Factories\Builder as BuilderFactory;
+use LSVH\SSRComponents\Factories\Property as PropertyFactory;
 
-class Element implements ElementInterface {
+class Element implements ElementInterface
+{
     protected $tag;
     protected $props;
     protected $children;
     protected $componentId;
 
-    public function __construct(string $tag, array $props = [], $children = '') {
+    public function __construct(string $tag, array $props = [], $children = '')
+    {
         $this->tag = empty($tag) ? 'div' : $tag;
         $this->props = PropertyFactory::createInstances($props);
         $this->children = is_array($children)
@@ -22,7 +24,8 @@ class Element implements ElementInterface {
             : $children;
     }
 
-    public function getPropertyValue(string $name): ?string {
+    public function getPropertyValue(string $name): ?string
+    {
         $props = array_filter($this->props, function ($prop) use ($name) {
             return $prop->getName() === $name;
         });
@@ -48,11 +51,13 @@ class Element implements ElementInterface {
         }
     }
 
-    public function getChildren() {
+    public function getChildren()
+    {
         return $this->children;
     }
 
-    public function toString(): string {
+    public function toString(): string
+    {
         if ($this->isSelfClosingTag()) {
             return "<{$this->tag}{$this->renderProps()} />";
         }
@@ -65,16 +70,19 @@ class Element implements ElementInterface {
         return "<{$this->tag}{$this->renderProps()}>{$children}</{$this->tag}>";
     }
 
-    public function getComponentId(): ?string {
+    public function getComponentId(): ?string
+    {
         return $this->componentId;
     }
 
-    public function setComponentId(string $value): void {
+    public function setComponentId(string $value): void
+    {
         $this->componentId = $value;
         $this->mergeWithClassProperty($value);
     }
 
-    public function mergeWithClassProperty(string $value): void {
+    public function mergeWithClassProperty(string $value): void
+    {
         $classes = $this->getPropertyValue('class');
         $classes = empty($classes) ? [] : preg_split('/\s+/', $classes);
         $classes[] = $value;
@@ -82,7 +90,8 @@ class Element implements ElementInterface {
         $this->setPropertyValue('class', implode(' ', array_unique($classes)));
     }
 
-    protected function isSelfClosingTag(): bool {
+    protected function isSelfClosingTag(): bool
+    {
         $html5 = [
             'area',
             'base',
@@ -106,7 +115,8 @@ class Element implements ElementInterface {
         return in_array($this->tag, $html5);
     }
 
-    protected function renderProps(): string {
+    protected function renderProps(): string
+    {
         $props = implode(
             ' ',
             array_filter(
@@ -116,6 +126,6 @@ class Element implements ElementInterface {
             ),
         );
 
-        return empty($props) ? '' : ' ' . $props;
+        return empty($props) ? '' : ' '.$props;
     }
 }

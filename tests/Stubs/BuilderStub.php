@@ -4,20 +4,25 @@ namespace LSVH\SSRComponents\Tests\Stubs;
 
 use LSVH\SSRComponents\Contracts\Builder;
 
-class BuilderStub extends Stub implements Builder {
-    public function __construct(array $components) {
+class BuilderStub extends Stub implements Builder
+{
+    public function __construct(array $components)
+    {
         $this->stub('__construct', null, [$components]);
     }
 
-    public function renderElements(): string {
+    public function renderElements(): string
+    {
         return $this->stub('renderElements', 'BuilderStub::renderElements');
     }
 
-    public function renderStyles(): string {
+    public function renderStyles(): string
+    {
         return $this->stub('renderStyles', 'BuilderStub::renderStyles');
     }
 
-    public function renderScripts(): string {
+    public function renderScripts(): string
+    {
         return $this->stub('renderScripts', 'BuilderStub::renderScripts');
     }
 }

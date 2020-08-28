@@ -6,13 +6,15 @@ use LSVH\SSRComponents\Builder;
 use LSVH\SSRComponents\Tests\Stubs\ComponentStub;
 use LSVH\SSRComponents\Tests\Stubs\ElementStub;
 
-class BuilderTest extends TestCase {
+class BuilderTest extends TestCase
+{
     /** @test */
-    public function can_render_component_array_with_element() {
+    public function can_render_component_array_with_element()
+    {
         $subject = new Builder([
             [
                 'concrete' => ComponentStub::class,
-                'element' => [true],
+                'element'  => [true],
             ],
         ]);
 
@@ -22,13 +24,14 @@ class BuilderTest extends TestCase {
     }
 
     /** @test */
-    public function can_render_component_array_with_element_style_and_script() {
+    public function can_render_component_array_with_element_style_and_script()
+    {
         $subject = new Builder([
             [
                 'concrete' => ComponentStub::class,
-                'element' => [true],
-                'style' => '',
-                'script' => '',
+                'element'  => [true],
+                'style'    => '',
+                'script'   => '',
             ],
         ]);
 
@@ -49,11 +52,12 @@ class BuilderTest extends TestCase {
     }
 
     /** @test */
-    public function can_render_element_array() {
+    public function can_render_element_array()
+    {
         $subject = new Builder([
             [
                 'concrete' => ElementStub::class,
-                'props' => [true],
+                'props'    => [true],
             ],
         ]);
 
@@ -64,7 +68,8 @@ class BuilderTest extends TestCase {
     }
 
     /** @test */
-    public function can_render_string_array() {
+    public function can_render_string_array()
+    {
         $expected = 'Hello World';
 
         $subject = new Builder([$expected]);

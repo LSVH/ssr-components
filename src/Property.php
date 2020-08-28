@@ -3,18 +3,20 @@
 namespace LSVH\SSRComponents;
 
 use LSVH\SSRComponents\Contracts\Property as PropertyInterface;
-use LSVH\SSRComponents\Contracts\Builder as BuilderInterface;
 
-class Property implements PropertyInterface {
+class Property implements PropertyInterface
+{
     protected $name;
     protected $value;
 
-    public function __construct(string $name, string $value = null) {
+    public function __construct(string $name, string $value = null)
+    {
         $this->name = strtolower($name);
         $this->value = $value;
     }
 
-    public function toString(): string {
+    public function toString(): string
+    {
         if ($this->isEventAttribute() || !$this->isAttribute() || empty($this->name)) {
             return '';
         }
@@ -23,22 +25,26 @@ class Property implements PropertyInterface {
             return $this->name;
         }
 
-        return $this->name . '="' . $this->value . '"';
+        return $this->name.'="'.$this->value.'"';
     }
 
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->name;
     }
 
-    public function getValue(): string {
+    public function getValue(): string
+    {
         return $this->value;
     }
 
-    public function setValue(string $value = null): void {
+    public function setValue(string $value = null): void
+    {
         $this->value = $value;
     }
 
-    protected function isEventAttribute(): bool {
+    protected function isEventAttribute(): bool
+    {
         $html5 = [
             'onafterprint',
             'onbeforeprint',
@@ -107,7 +113,8 @@ class Property implements PropertyInterface {
         return in_array($this->name, $html5);
     }
 
-    protected function isAttribute(): bool {
+    protected function isAttribute(): bool
+    {
         $html5 = [
             'accept',
             'accept-charset',

@@ -2,11 +2,13 @@
 
 namespace LSVH\SSRComponents\Factories;
 
-use LSVH\SSRComponents\Property as PropertyConcrete;
 use LSVH\SSRComponents\Contracts\Property as PropertyInterface;
+use LSVH\SSRComponents\Property as PropertyConcrete;
 
-class Property extends Factory {
-    public static function createInstance($config): PropertyInterface {
+class Property extends Factory
+{
+    public static function createInstance($config): PropertyInterface
+    {
         if ($config instanceof PropertyInterface) {
             return $config;
         }
@@ -18,13 +20,14 @@ class Property extends Factory {
         return new $concrete($name, $value);
     }
 
-    public static function createInstances(array $configs): array {
+    public static function createInstances(array $configs): array
+    {
         return array_filter(
             array_map(
                 function (string $name, $value = null) {
                     if (is_string($value) || $value == null) {
                         return static::createInstance([
-                            'name' => $name,
+                            'name'  => $name,
                             'value' => $value,
                         ]);
                     }
