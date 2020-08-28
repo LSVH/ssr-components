@@ -1,7 +1,7 @@
 name: generate plantuml
 on:
   push:
-    branches:
+    branches-ignore:
       - master
 jobs:
   generate_plantuml:
