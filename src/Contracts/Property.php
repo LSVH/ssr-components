@@ -2,7 +2,8 @@
 
 namespace LSVH\SSRComponents\Contracts;
 
-interface Property {
+interface Property
+{
     public function __construct(string $name, string $value = null);
 
     public function toString(): string;

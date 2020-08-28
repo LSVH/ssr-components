@@ -3,21 +3,24 @@
 namespace LSVH\SSRComponents\Tests;
 
 use LSVH\SSRComponents\Element;
-use LSVH\SSRComponents\Tests\Stubs\PropertyStub;
 use LSVH\SSRComponents\Tests\Stubs\BuilderStub;
+use LSVH\SSRComponents\Tests\Stubs\PropertyStub;
 
-class ElementTest extends TestCase {
+class ElementTest extends TestCase
+{
     protected $property;
     protected $builder;
 
-    public function setUp(): void {
+    public function setUp(): void
+    {
         parent::setUp();
         $this->property = new PropertyStub('', null);
         $this->builder = new BuilderStub([]);
     }
 
     /** @test */
-    public function can_convert_to_string_with_default_value() {
+    public function can_convert_to_string_with_default_value()
+    {
         $subject = new Element('', []);
 
         $expected = '<div></div>';
@@ -26,7 +29,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_convert_to_string_with_custom_tag() {
+    public function can_convert_to_string_with_custom_tag()
+    {
         $subject = new Element('p', []);
 
         $expected = '<p></p>';
@@ -35,7 +39,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_convert_to_string_with_self_closing_tag() {
+    public function can_convert_to_string_with_self_closing_tag()
+    {
         $subject = new Element('input', []);
 
         $expected = '<input />';
@@ -44,7 +49,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_convert_to_string_with_custom_props() {
+    public function can_convert_to_string_with_custom_props()
+    {
         $subject = new Element('', [['concrete' => get_class($this->property)]]);
 
         $expected = "<div {$this->property->toString()}></div>";
@@ -53,7 +59,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_convert_to_string_with_self_closing_tag_and_custom_props() {
+    public function can_convert_to_string_with_self_closing_tag_and_custom_props()
+    {
         $subject = new Element('input', [
             'foo' => ['concrete' => get_class($this->property)],
         ]);
@@ -64,7 +71,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_convert_to_string_with_children() {
+    public function can_convert_to_string_with_children()
+    {
         $subject = new Element('', [], 'Hello World');
 
         $expected = '<div>Hello World</div>';
@@ -73,7 +81,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_convert_to_string_with_children_and_custom_props() {
+    public function can_convert_to_string_with_children_and_custom_props()
+    {
         $subject = new Element(
             '',
             [
@@ -88,7 +97,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_convert_to_string_with_children_with_builder() {
+    public function can_convert_to_string_with_children_with_builder()
+    {
         $subject = new Element('', [], ['concrete' => get_class($this->builder)]);
 
         $expected = "<div>{$this->builder->renderElements()}</div>";
@@ -97,7 +107,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function ignores_children_when_converting_to_string_with_self_closing_tag() {
+    public function ignores_children_when_converting_to_string_with_self_closing_tag()
+    {
         $subject = new Element('input', [], 'Hello World');
 
         $expected = '<input />';
@@ -106,7 +117,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_get_property() {
+    public function can_get_property()
+    {
         $subject = new Element('', [['concrete' => get_class($this->property)]]);
 
         $expected = $this->property->getValue();
@@ -115,7 +127,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_set_value_for_existing_property() {
+    public function can_set_value_for_existing_property()
+    {
         $this->property->setMock('getName', 'class');
         $this->property->setMock('getValue', 'foo');
         $subject = new Element('', [$this->property]);
@@ -129,7 +142,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_set_value_for_non_existing_property() {
+    public function can_set_value_for_non_existing_property()
+    {
         $subject = new Element('');
         $subject->setPropertyValue('class', 'foo');
 
@@ -139,7 +153,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_set_value_for_non_existing_property_with_custom_concrete() {
+    public function can_set_value_for_non_existing_property_with_custom_concrete()
+    {
         $subject = new Element('');
         $subject->setPropertyValue('class', ['concrete' => get_class($this->property)]);
 
@@ -149,7 +164,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_get_children() {
+    public function can_get_children()
+    {
         $expected = 'Hello World';
 
         $subject = new Element('input', [], $expected);
@@ -160,7 +176,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_get_component_id() {
+    public function can_get_component_id()
+    {
         $subject = new Element('');
 
         $expected = null;
@@ -169,7 +186,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_set_and_get_component_id() {
+    public function can_set_and_get_component_id()
+    {
         $subject = new Element('');
 
         $expected = 'foo';
@@ -180,7 +198,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_inject_component_id_in_class_attribute() {
+    public function can_inject_component_id_in_class_attribute()
+    {
         $subject = new Element('');
 
         $expected = 'foo';
@@ -192,7 +211,8 @@ class ElementTest extends TestCase {
     }
 
     /** @test */
-    public function can_merge_component_id_with_existing_class_attribute_value() {
+    public function can_merge_component_id_with_existing_class_attribute_value()
+    {
         $this->property->setMock('getName', 'class');
         $this->property->setMock('getValue', 'foo');
         $subject = new Element('', [$this->property]);

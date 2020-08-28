@@ -2,13 +2,16 @@
 
 namespace LSVH\SSRComponents\Factories;
 
-abstract class Factory {
-    private function __construct() {
+abstract class Factory
+{
+    private function __construct()
+    {
     }
 
     abstract public static function createInstance($config);
 
-    public static function createInstances(array $configs): array {
+    public static function createInstances(array $configs): array
+    {
         return array_filter(
             array_map(function ($config) {
                 if (is_array($config)) {
@@ -20,11 +23,13 @@ abstract class Factory {
         );
     }
 
-    protected static function getConfigAttribute(array $config, string $name, $fallback = null) {
+    protected static function getConfigAttribute(array $config, string $name, $fallback = null)
+    {
         return array_key_exists($name, $config) ? $config[$name] : $fallback;
     }
 
-    protected static function getConcrete(array $config, string $interface, string $fallback) {
+    protected static function getConcrete(array $config, string $interface, string $fallback)
+    {
         $concrete = static::getConfigAttribute($config, 'concrete');
         $concrete = class_exists($concrete) ? $concrete : null;
 
