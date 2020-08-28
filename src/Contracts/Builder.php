@@ -2,7 +2,8 @@
 
 namespace LSVH\SSRComponents\Contracts;
 
-interface Builder {
+interface Builder
+{
     public function __construct(array $components);
 
     public function renderElements(): string;

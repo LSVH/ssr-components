@@ -8,14 +8,17 @@ use LSVH\SSRComponents\Contracts\Element as ElementInterface;
 use LSVH\SSRComponents\Factories\Component as ComponentFactory;
 use LSVH\SSRComponents\Factories\Element as ElementFactory;
 
-class Builder implements BuilderInterface {
+class Builder implements BuilderInterface
+{
     protected $components;
 
-    public function __construct(array $components) {
+    public function __construct(array $components)
+    {
         $this->components = static::buildComponents($components);
     }
 
-    public function renderElements(): string {
+    public function renderElements(): string
+    {
         $handleComponents = function ($component) {
             return $component->renderElement();
         };
@@ -26,7 +29,8 @@ class Builder implements BuilderInterface {
         return $this->renderComponents($handleComponents, $handleElements);
     }
 
-    public function renderStyles(): string {
+    public function renderStyles(): string
+    {
         $handleComponents = function ($component) {
             return $component->renderStyle();
         };
@@ -37,7 +41,8 @@ class Builder implements BuilderInterface {
         return $this->renderComponents($handleComponents, $handleElements, '');
     }
 
-    public function renderScripts(): string {
+    public function renderScripts(): string
+    {
         $handleComponents = function ($component) {
             return $component->renderScript();
         };
@@ -55,30 +60,33 @@ class Builder implements BuilderInterface {
     ): string {
         return implode(
             '',
-            array_map(function ($component) use (
+            array_map(
+                function ($component) use (
                 $handleComponents,
                 $handleElements,
                 $defaultHandler
             ) {
-                if ($component instanceof ComponentInterface) {
-                    return $handleComponents($component);
-                }
+                    if ($component instanceof ComponentInterface) {
+                        return $handleComponents($component);
+                    }
 
-                if ($component instanceof ElementInterface) {
-                    return $handleElements($component);
-                }
+                    if ($component instanceof ElementInterface) {
+                        return $handleElements($component);
+                    }
 
-                return is_callable($defaultHandler)
+                    return is_callable($defaultHandler)
                     ? $defaultHandler($component)
                     : ($defaultHandler == null
                         ? $component
                         : $defaultHandler);
-            },
-            $this->components),
+                },
+                $this->components
+            ),
         );
     }
 
-    protected static function buildComponents(array $components): array {
+    protected static function buildComponents(array $components): array
+    {
         return array_filter(
             array_map(function ($component) {
                 if (is_array($component)) {

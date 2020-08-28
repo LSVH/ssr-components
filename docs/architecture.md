@@ -43,7 +43,8 @@ class Element {
     # children
     + __construct(string $tag, array $props = [], $children = '')
     + toString(): string
-    + getPropertyByName(string $name): null|Property
+    + getPropertyValue(string $name): null|string
+    + setPropertyValue(string $name, string $value = null): void
     + getChildren()
 }
 
