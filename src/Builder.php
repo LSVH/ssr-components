@@ -66,20 +66,20 @@ class Builder implements BuilderInterface
                 $handleElements,
                 $defaultHandler
             ) {
-                if ($component instanceof ComponentInterface) {
-                    return $handleComponents($component);
-                }
+                    if ($component instanceof ComponentInterface) {
+                        return $handleComponents($component);
+                    }
 
-                if ($component instanceof ElementInterface) {
-                    return $handleElements($component);
-                }
+                    if ($component instanceof ElementInterface) {
+                        return $handleElements($component);
+                    }
 
-                return is_callable($defaultHandler)
+                    return is_callable($defaultHandler)
                     ? $defaultHandler($component)
                     : ($defaultHandler == null
                         ? $component
                         : $defaultHandler);
-            },
+                },
                 $this->components
             ),
         );
