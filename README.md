@@ -71,7 +71,9 @@ Have a look at our examples to get a basic understanding of how it all works:
 <details>
 <summary>Calculator Demo</summary>
 
-<figure style="height: 500px;"><iframe src="https://phpsandbox.io/e/x/gentle-glitter-8bjl?&layout=EditorPreview&iframeId=81yv9dwbit&theme=dark&defaultPath=/&showExplorer=no" style="display: block" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" width="100%" height="100%"></iframe></figure>
+<figure style="height: 500px;">
+    <iframe src="https://phpsandbox.io/e/x/gentle-glitter-8bjl?&layout=EditorPreview&iframeId=tqkzqhnnwl&theme=dark&defaultPath=/&showExplorer=no" style="display: block" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" width="100%" height="100%"></iframe>
+</figure>
 
 </details>
 
@@ -104,7 +106,7 @@ Luuk van Houdt - [@lsvh_org](//twitter.com/lsvh_org)
 [angular]: //angular.io
 [php]: //php.net
 [composer]: //getcomposer.org
-[badge-stable-version]: //poser.pugx.org/lsvh/ssr-components/v
-[badge-unstable-version]: /poser.pugx.org/lsvh/ssr-components/v/unstable
-[badge-downloads]: //poser.pugx.org/lsvh/ssr-components/downloads
-[badge-test-status]: //img.shields.io/github/workflow/status/lsvh/ssr-components/tests
+[badge-stable-version]: https://poser.pugx.org/lsvh/ssr-components/v
+[badge-unstable-version]: https://poser.pugx.org/lsvh/ssr-components/v/unstable
+[badge-downloads]: https://poser.pugx.org/lsvh/ssr-components/downloads
+[badge-test-status]: https://img.shields.io/github/workflow/status/lsvh/ssr-components/tests
